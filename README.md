@@ -1,1 +1,1 @@
-rich-text-editor-project
+# Rich Text Editor Project
