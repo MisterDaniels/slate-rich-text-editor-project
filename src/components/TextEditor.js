@@ -8,6 +8,7 @@ import { italic } from 'react-icons-kit/feather/italic';
 import { code } from 'react-icons-kit/feather/code';
 import { list } from 'react-icons-kit/feather/list';
 import { underline } from 'react-icons-kit/feather/underline';
+import { airplay as blockquote } from 'react-icons-kit/feather/airplay';
 
 import { BoldMark, ItalicMark, FormatToolbar } from './index';
 
@@ -53,28 +54,32 @@ export default class TextEditor extends Component {
         e.preventDefault();
         
         switch(e.key) {
+            case 'q': {
+                change.toggleMark('blockquote');
+                break;
+            }
             case 'b': {
                 change.toggleMark('bold');
-                return;
+                break;            
             }
             case 'i': {
                 change.toggleMark('italic');
-                return;
+                break;
             }
             case 'c': {
                 change.toggleMark('code');
-                return;
+                break;
             }
             case 'l': {
                 change.toggleMark('list');
-                return;
+                break;
             }
             case 'u': {
                 change.toggleMark('underline');
-                return;
+                break;
             }
             default: {
-                return;
+                break;
             }
         }
 
@@ -100,6 +105,9 @@ export default class TextEditor extends Component {
             }
             case 'underline': {
                 return <u {...props.attributes}>{props.children}</u>;
+            }
+            case 'blockquote': {
+                return <blockquote {...props.attributes}>{props.children}</blockquote>;
             }
             default: {
                 return;
@@ -150,6 +158,12 @@ export default class TextEditor extends Component {
                         className="tooltip-icon-button"
                     >
                         <Icon icon={underline} />
+                    </button>
+                    <button
+                        onPointerDown={(e) => this.onMarkClick(e, 'blockquote')}
+                        className="tooltip-icon-button"
+                    >
+                        <Icon icon={blockquote} />
                     </button>
                 </FormatToolbar>
                 <Editor 
