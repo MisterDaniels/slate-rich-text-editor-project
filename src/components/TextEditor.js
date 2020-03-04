@@ -10,7 +10,7 @@ import { list } from 'react-icons-kit/feather/list';
 import { underline } from 'react-icons-kit/feather/underline';
 import { airplay as blockquote } from 'react-icons-kit/feather/airplay';
 
-import { BoldMark, ItalicMark, FormatToolbar } from './index';
+import { BoldMark, ItalicMark, FormatToolbar, BlockQuote } from './index';
 
 const initialValue = Value.fromJSON({
     document: {
@@ -107,7 +107,7 @@ export default class TextEditor extends Component {
                 return <u {...props.attributes}>{props.children}</u>;
             }
             case 'blockquote': {
-                return <blockquote {...props.attributes}>{props.children}</blockquote>;
+                return <BlockQuote {...props.attributes}>{props.children}</BlockQuote>;
             }
             default: {
                 return;
@@ -125,43 +125,71 @@ export default class TextEditor extends Component {
         this.onChange(change);
     }
 
+    activateButton(buttonName) {
+        this.setState({ active: buttonName });
+    }
+
     render() {
         return (
             <Fragment>
                 <FormatToolbar>
-                    <button 
-                        onPointerDown={(e) => this.onMarkClick(e, 'bold')}
+                    <button
+                        onPointerDown={(e) => {
+                            this.onMarkClick(e, 'bold');
+                            this.activateButton('bold');
+                        }}
                         className="tooltip-icon-button"
+                        active={this.state.active === 'bold' ? 'true' : 'false'}
                     >
                         <Icon icon={bold} />
                     </button>
                     <button
-                        onPointerDown={(e) => this.onMarkClick(e, 'italic')}
+                        onPointerDown={(e) => { 
+                            this.onMarkClick(e, 'italic');
+                            this.activateButton('italic');
+                        }}
                         className="tooltip-icon-button"
+                        active={this.state.active === 'italic' ? 'true' : 'false'}
                     >
                         <Icon icon={italic} />
                     </button>
                     <button
-                        onPointerDown={(e) => this.onMarkClick(e, 'code')}
+                        onPointerDown={(e) => {
+                            this.onMarkClick(e, 'code');
+                            this.activateButton('code');
+                        }}
                         className="tooltip-icon-button"
+                        active={this.state.active === 'code' ? 'true' : 'false'}
                     >
                         <Icon icon={code} />
                     </button>
                     <button
-                        onPointerDown={(e) => this.onMarkClick(e, 'list')}
+                        onPointerDown={(e) => {
+                            this.onMarkClick(e, 'list');
+                            this.activateButton('list');
+                        }}
                         className="tooltip-icon-button"
+                        active={this.state.active === 'list' ? 'true' : 'false'}
                     >
                         <Icon icon={list} />
                     </button>
                     <button
-                        onPointerDown={(e) => this.onMarkClick(e, 'underline')}
+                        onPointerDown={(e) => {
+                            this.onMarkClick(e, 'underline');
+                            this.activateButton('underline');
+                        }}
                         className="tooltip-icon-button"
+                        active={this.state.active === 'underline' ? 'true' : 'false'}
                     >
                         <Icon icon={underline} />
                     </button>
                     <button
-                        onPointerDown={(e) => this.onMarkClick(e, 'blockquote')}
+                        onPointerDown={(e) => {
+                            this.onMarkClick(e, 'blockquote');
+                            this.activateButton('blockquote');
+                        }}
                         className="tooltip-icon-button"
+                        active={this.state.active === 'blockquote' ? 'true' : 'false'}
                     >
                         <Icon icon={blockquote} />
                     </button>

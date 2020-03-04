@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.almostHidden {
+  color: rgba(0, 0, 0, 0.1);
+}
+
+hr[scale=small] {
+  border: none;
+  border-top: 1px solid;   
+}
+
+hr[scale=medium] {
+  border: none;
+  border-top: 2px solid;   
+}
+
+hr[scale=large] {
+  border: none;
+  border-top: 3px solid;   
+}

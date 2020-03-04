@@ -1,0 +1,9 @@
+blockquote {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: var(--background-primary-color);
+}
+
+hr {
+    width: 80%;
+}
