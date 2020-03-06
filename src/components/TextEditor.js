@@ -36,7 +36,8 @@ const initialValue = Value.fromJSON({
 export default class TextEditor extends Component {
     
     state = {
-        value: initialValue
+        value: initialValue,
+        active: []
     }
 
     onChange = ({ value }) => {
@@ -125,8 +126,10 @@ export default class TextEditor extends Component {
         this.onChange(change);
     }
 
-    activateButton(buttonName) {
-        this.setState({ active: buttonName });
+    activateButton(button) {
+        this.setState(state => ({
+            active: state.active.filter(actives => !actives.includes(button))
+        })); 
     }
 
     render() {
@@ -139,7 +142,7 @@ export default class TextEditor extends Component {
                             this.activateButton('bold');
                         }}
                         className="tooltip-icon-button"
-                        active={this.state.active === 'bold' ? 'true' : 'false'}
+                        active={this.state.active.includes('bold') ? 'true' : 'false'}
                     >
                         <Icon icon={bold} />
                     </button>
@@ -149,7 +152,7 @@ export default class TextEditor extends Component {
                             this.activateButton('italic');
                         }}
                         className="tooltip-icon-button"
-                        active={this.state.active === 'italic' ? 'true' : 'false'}
+                        active={this.state.active.includes('italic') ? 'true' : 'false'}
                     >
                         <Icon icon={italic} />
                     </button>
@@ -159,7 +162,7 @@ export default class TextEditor extends Component {
                             this.activateButton('code');
                         }}
                         className="tooltip-icon-button"
-                        active={this.state.active === 'code' ? 'true' : 'false'}
+                        active={this.state.active.includes('code') ? 'true' : 'false'}
                     >
                         <Icon icon={code} />
                     </button>
@@ -169,7 +172,7 @@ export default class TextEditor extends Component {
                             this.activateButton('list');
                         }}
                         className="tooltip-icon-button"
-                        active={this.state.active === 'list' ? 'true' : 'false'}
+                        active={this.state.active.includes('list') ? 'true' : 'false'}
                     >
                         <Icon icon={list} />
                     </button>
@@ -179,7 +182,7 @@ export default class TextEditor extends Component {
                             this.activateButton('underline');
                         }}
                         className="tooltip-icon-button"
-                        active={this.state.active === 'underline' ? 'true' : 'false'}
+                        active={this.state.active.includes('underline') ? 'true' : 'false'}
                     >
                         <Icon icon={underline} />
                     </button>
@@ -189,7 +192,7 @@ export default class TextEditor extends Component {
                             this.activateButton('blockquote');
                         }}
                         className="tooltip-icon-button"
-                        active={this.state.active === 'blockquote' ? 'true' : 'false'}
+                        active={this.state.active.includes('blockquote') ? 'true' : 'false'}
                     >
                         <Icon icon={blockquote} />
                     </button>
