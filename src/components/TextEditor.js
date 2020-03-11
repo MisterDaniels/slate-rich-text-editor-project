@@ -10,7 +10,7 @@ import { list } from "react-icons-kit/feather/list";
 import { underline } from "react-icons-kit/feather/underline";
 import { airplay as blockquote } from "react-icons-kit/feather/airplay";
 
-import { BoldMark, ItalicMark, FormatToolbar, BlockQuote } from "./index";
+import { BoldMark, ItalicMark, FormatToolbar, BlockQuote, SearchInput } from "./index";
 
 const initialValue = Value.fromJSON({
   document: {
@@ -75,6 +75,10 @@ export default class TextEditor extends Component {
         change.toggleMark("underline");
         break;
       }
+      case "f": {
+        this.activateButton("search");
+        break;
+      }
       default: {
         break;
       }
@@ -132,6 +136,9 @@ export default class TextEditor extends Component {
     return (
       <Fragment>
         <FormatToolbar>
+          <SearchInput 
+            active={this.state.active["search"] ? "true" : "false"}  
+          />
           <button
             onPointerDown={e => {
               this.onMarkClick(e, "bold");

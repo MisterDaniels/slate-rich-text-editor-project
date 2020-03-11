@@ -8,6 +8,14 @@ hr {
     width: 80%;
 }
 
+input {
+    box-sizing: border-box;
+    font-size: 0.85em;
+    padding: 0.5em;
+    border: 2px solid #ddd;
+    background-color: var(--background-secondary-color);
+}
+
 .format-toolbar {
     display: flex;
     justify-content: space-evenly;

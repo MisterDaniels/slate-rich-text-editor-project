@@ -30,6 +30,10 @@ code {
     monospace;
 }
 
-[active=true] {
+.tooltip-icon-button[active=true] {
   color: red;
+}
+
+.tooltip-tools[active=false] {
+  display: none;
 }
