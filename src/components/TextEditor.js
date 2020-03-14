@@ -109,6 +109,16 @@ export default class TextEditor extends Component {
       case "blockquote": {
         return <BlockQuote {...props.attributes}>{props.children}</BlockQuote>;
       }
+      case "highlight": {
+        return (
+          <span
+              {...props.attributes}
+              style={{ backgroundColor: '#ffeeba' }}
+          >
+              {props.children}
+          </span>
+      );
+      }
       default: {
         return;
       }
@@ -126,7 +136,6 @@ export default class TextEditor extends Component {
   };
 
   activateButton(button) {
-    console.log(this.state.active[button]);
     this.setState(state => ({
       active: { [button]: !state.active[button] }
     }));
@@ -138,6 +147,7 @@ export default class TextEditor extends Component {
         <FormatToolbar>
           <SearchInput 
             active={this.state.active["search"] ? "true" : "false"}  
+            editor={{'text': this.state.value, 'callback': this.onChange}}
           />
           <button
             onPointerDown={e => {

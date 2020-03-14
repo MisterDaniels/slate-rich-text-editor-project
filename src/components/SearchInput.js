@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import Icon from 'react-icons-kit';
 import { search as searchIcon } from 'react-icons-kit/feather/search';
 
@@ -21,29 +21,40 @@ const iconStyle = {
 
 const SearchInput = props => {
 
-    const [search, setSearch] = useState();
+    const onInputSearchChange = e => {
+        const textToSearch = props.editor.text;
+        const content = e.target.value;
+        const texts = textToSearch.document.getTexts();
+        const decorations = [];
 
-    const decorate = useCallback(([node, path]) => {
-        const ranges = [];
-
-        if (search && Text.isText(node)) {
-            const { text } = node;
-            const parts = text.split(search);
+        texts.forEach(node => {
+            const { key, text } = node;
+            const parts = text.split(content);
             let offset = 0;
 
             parts.forEach((part, i) => {
                 if (i !== 0) {
-                    ranges.push({
-                        anchor: { path, offset: offset - search.length },
-                        focus: { path, offset },
-                        highlight: true
+                    decorations.push({
+                        anchorKey: key,
+                        anchorOffset: offset - content.length,
+                        focusKey: key,
+                        focusOffset: offset,
+                        marks: [{
+                            type: 'highlight'
+                        }],
+                        atomic: true
                     });
                 }
-            });
-        }
 
-        return ranges;
-    },[search]);
+                offset = offset + part.length + content.length;
+            });
+        });
+
+        const search = textToSearch.change()
+                    .setValue({ decorations })
+
+        props.editor.callback(search);
+    }
 
     return (
         <div className="tooltip-tools" 
@@ -54,7 +65,7 @@ const SearchInput = props => {
             <input 
                 type="search" 
                 placeholder="Search for a text..."
-                onChange={e => setSearch(e.target.value)} 
+                onChange={ onInputSearchChange } 
                 style={ inputStyle} />
         </div>   
     )
