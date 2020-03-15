@@ -10,7 +10,20 @@ import { list } from "react-icons-kit/feather/list";
 import { underline } from "react-icons-kit/feather/underline";
 import { airplay as blockquote } from "react-icons-kit/feather/airplay";
 
-import { BoldMark, ItalicMark, FormatToolbar, BlockQuote, SearchInput } from "./index";
+import { BoldMark, ItalicMark, FormatToolbar, BlockQuote, Code, SearchInput } from "./index";
+
+const SHORTCUTS = {
+  '*': 'list-item',
+  '-': 'list-item',
+  '+': 'list-item',
+  '>': 'block-quote',
+  '#': 'heading-one',
+  '##': 'heading-two',
+  '###': 'heading-three',
+  '####': 'heading-four',
+  '#####': 'heading-five',
+  '######': 'heading-six'
+}
 
 const initialValue = Value.fromJSON({
   document: {
@@ -85,7 +98,7 @@ export default class TextEditor extends Component {
     }
   };
 
-  renderMark = props => {
+  renderMark = props => { 
     switch (props.mark.type) {
       case "bold": {
         return <BoldMark {...props} />;
@@ -94,7 +107,10 @@ export default class TextEditor extends Component {
         return <ItalicMark {...props} />;
       }
       case "code": {
-        return <code {...props.attributes}>{props.children}</code>;
+        return <Code 
+                  language = "javascript"
+                  code = { props.children }
+               />
       }
       case "list": {
         return (
@@ -120,7 +136,7 @@ export default class TextEditor extends Component {
       );
       }
       default: {
-        return;
+        return props.children;
       }
     }
   };
